@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Support the Blind Screening Standard Act</title>
+    <style>
+        :root {
+            --accent: #45c0aa;
+            --accent-dark: #2b9b87;
+            --bg1: #c6f2ea;
+            --bg2: #f2fff9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", Arial, sans-serif;
+            color: #12312b;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--bg1), var(--bg2));
+            background-size: 200% 200%;
+            animation: bgMove 12s ease-in-out infinite;
+            padding: 40px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* 浮動彩色泡泡背景 */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.45;
+            z-index: -2;
+            animation: floatBlob 18s ease-in-out infinite alternate;
+        }
+        .blob.blob1 {
+            width: 260px; height: 260px;
+            background: #8ce3d2;
+            top: -60px; left: -40px;
+        }
+        .blob.blob2 {
+            width: 220px; height: 220px;
+            background: #ffe2b8;
+            bottom: -40px; right: -30px;
+            animation-delay: 4s;
+        }
+        .blob.blob3 {
+            width: 180px; height: 180px;
+            background: #b8d5ff;
+            top: 40%; right: 10%;
+            animation-delay: 7s;
+        }
+
+        @keyframes floatBlob {
+            0% { transform: translate3d(0,0,0) scale(1); }
+            50% { transform: translate3d(20px,-20px,0) scale(1.05); }
+            100% { transform: translate3d(-20px,10px,0) scale(1.1); }
+        }
+
+        .card {
+            width: 100%;
+            max-width: 760px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(18px);
+            border-radius: 24px;
+            box-shadow: 0 22px 50px rgba(0,0,0,0.18);
+            padding: 32px 28px 28px;
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at top left, rgba(255,255,255,0.4), transparent 60%);
+            pointer-events: none;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            background: linear-gradient(135deg, #256f62, #45c0aa);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            margin: 6px 0 18px;
+            font-size: 17px;
+            font-weight: 500;
+            color: #3b8071;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0 0 12px;
+            color: #38544e;
+            font-size: 14.5px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 40px;
+            background: #e7f8f3;
+            color: #2f6f62;
+            margin-bottom: 10px;
+        }
+
+        .pill span.icon {
+            font-size: 15px;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 10px 0 18px;
+            align-items: center;
+        }
+
+        .stat {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #607973;
+        }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #21534a;
+        }
+
+        .goal-text {
+            font-size: 13px;
+            color: #54726b;
+        }
+
+        .progress-bar {
+            position: relative;
+            width: 100%;
+            height: 12px;
+            border-radius: 999px;
+            background: #e1f0ec;
+            overflow: hidden;
+            margin-top: 6px;
+        }
+
+        .progress-fill {
+            position: absolute;
+            inset: 0;
+            width: 0%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #45c0aa, #2f9d89);
+            box-shadow: 0 0 12px rgba(77, 190, 167, 0.6);
+            animation: progressGrow 1.2s ease-out forwards;
+        }
+
+        @keyframes progressGrow {
+            from { width: 0%; }
+            to { width: 78%; } /* 大概代表 9,324 / 12,000 之類 */
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            margin-bottom: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #295a51;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border-radius: 12px;
+            border: 2px solid #d6e8e3;
+            font-size: 14px;
+            transition: 0.25s;
+            background: rgba(255,255,255,0.9);
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(69, 192, 170, 0.18);
+            transform: translateY(-1px);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            margin-top: 18px;
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            color: white;
+            font-size: 15.5px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(47, 150, 129, 0.42);
+            transition: 0.22s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 30px rgba(47, 150, 129, 0.5);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 8px 18px rgba(47, 150, 129, 0.38);
+        }
+
+        .button-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .button-ripple {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.5), transparent 55%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+
+        .fine-print {
+            margin-top: 14px;
+            font-size: 11.5px;
+            color: #7a8f8a;
+            text-align: center;
+        }
+
+        /* 成功彈出視窗 */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s;
+        }
+
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 18px;
+            padding: 22px 22px 18px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.28);
+            animation: popIn 0.25s ease-out;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.85) translateY(10px);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 999px;
+            background: #e7faf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 26px;
+            color: var(--accent-dark);
+        }
+
+        .modal h3 {
+            margin: 4px 0 6px;
+            font-size: 18px;
+            color: #23443d;
+        }
+
+        .modal p {
+            margin: 0;
+            font-size: 13px;
+            color: #546963;
+        }
+
+        .modal button {
+            margin-top: 14px;
+            width: auto;
+            padding: 8px 18px;
+            font-size: 13px;
+            box-shadow: none;
+        }
+
+        /* confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 8px;
+            height: 14px;
+            border-radius: 2px;
+            opacity: 0.9;
+            animation: fall 1.3s linear forwards;
+            z-index: 30;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translate3d(var(--x-move), 100vh, 0) rotateZ(260deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<div class="card">
+    <div class="pill">
+        <span class="icon">🤝</span>
+        <span>Student Petition · Demo for Class Presentation</span>
+    </div>
+
+    <h1>Support the Blind Screening Standard Act (BSS Act)</h1>
+    <h2>Help us make AI hiring fair, unbiased, and focused on real skills.</h2>
+
+    <p>
+        Every day, qualified candidates are rejected by AI hiring systems because their résumés
+        reveal personal details—details that should never decide whether someone gets an interview.
+        Names, gender clues, addresses, and even school prestige can unconsciously affect how AI
+        ranks applicants.
+    </p>
+    <p>
+        The Blind Screening Standard Act (BSS Act) aims to fix this by removing sensitive information
+        <strong>before</strong> AI screening begins, so the system evaluates people based on skills—not identity.
+    </p>
+    <p>
+        This petition calls for the government to provide a <strong>free, standardized anonymization tool</strong>
+        that all companies can use. No extra cost. No complex setup. Just fair, clean data going into the system.
+    </p>
+
+    <div class="stats-row">
+        <div class="stat">
+            <div class="stat-label">People who have signed</div>
+            <div class="stat-value" id="count">9,000</div>
+            <div class="goal-text">Goal: 12,000 signatures</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">Progress</div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <p>
+        If you believe hiring should be fair and based on merit, please add your name below.
+        Your support brings us one step closer to a more equal future in the workplace.
+    </p>
+
+    <form id="petitionForm">
+        <label for="name">Your Name</label>
+        <input id="name" type="text" placeholder="Enter your name">
+
+        <label for="opinion">Why do you support this policy? (Optional)</label>
+        <textarea id="opinion" rows="5" placeholder="Share your thoughts or story"></textarea>
+
+        <button type="submit">
+            <span class="button-text">Add Your Name</span>
+            <div class="button-ripple" id="ripple"></div>
+        </button>
+    </form>
+
+    <div class="fine-print">
+        This is a demo petition page created for a class presentation on AI hiring policy.
+    </div>
+</div>
+
+<div class="overlay" id="overlay">
+    <div class="modal">
+        <div class="modal-icon">✅</div>
+        <h3>Thank you for your support!</h3>
+        <p>Your (demo) signature has been recorded. Together we can push for fairer AI hiring.</p>
+        <button onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script>
+    // 數字從 9000 跳到 9324
+    const counterEl = document.getElementById("count");
+    let start = 9000;
+    const end = 9324;
+    const duration = 1500;
+    const stepTime = 30;
+    const totalSteps = duration / stepTime;
+    const increment = (end - start) / totalSteps;
+
+    let current = start;
+    const timer = setInterval(() => {
+        current += increment;
+        if (current >= end) {
+            current = end;
+            clearInterval(timer);
+        }
+        counterEl.textContent = Math.round(current).toLocaleString();
+    }, stepTime);
+
+    // submit + 彈出視窗 + confetti
+    const form = document.getElementById("petitionForm");
+    const overlay = document.getElementById("overlay");
+
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+        overlay.classList.add("show");
+        launchConfetti();
+    });
+
+    function closeModal() {
+        overlay.classList.remove("show");
+    }
+
+    // button ripple
+    const button = form.querySelector("button");
+    const ripple = document.getElementById("ripple");
+    button.addEventListener("mousemove", (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        ripple.style.setProperty("--x", x + "%");
+        ripple.style.setProperty("--y", y + "%");
+        ripple.style.opacity = 1;
+        clearTimeout(ripple._timeout);
+        ripple._timeout = setTimeout(() => {
+            ripple.style.opacity = 0;
+        }, 250);
+    });
+
+    // confetti 動畫
+    function launchConfetti() {
+        const colors = ["#ff9a9e","#fad0c4","#fbc2eb","#a1c4fd","#c2ffd8","#fda085"];
+        for (let i = 0; i < 38; i++) {
+            const c = document.createElement("div");
+            c.className = "confetti";
+            const size = 6 + Math.random() * 6;
+            c.style.width = size + "px";
+            c.style.height = (size + 4) + "px";
+            c.style.left = Math.random() * 100 + "vw";
+            c.style.background = colors[Math.floor(Math.random() * colors.length)];
+            c.style.setProperty("--x-move", (Math.random() * 80 - 40) + "px");
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 1400);
+        }
+    }
+</script>
+
+</body>
+</html>
